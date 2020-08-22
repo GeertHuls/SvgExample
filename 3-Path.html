@@ -47,9 +47,38 @@
 		Each of these instruction have different kinds of parameters.
 
 		Check details: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d
+
+		The commas used to seperate the values are optional, it's only used for readability.
+
+		g tag = group of elements that we want to treat as a single element.
+
 	-->
 
     <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400">
+	    <style>
+			#meringue path {
+	            transform-origin: 200px 200px;
+	        }
+	        #meringue path:nth-of-type(1) {
+	            transform: rotate(0deg);
+	        }
+	        #meringue path:nth-of-type(2) {
+	            transform: rotate(60deg);
+	        }
+	        #meringue path:nth-of-type(3) {
+	            transform: rotate(120deg);
+	        }
+	        #meringue path:nth-of-type(4) {
+	            transform: rotate(180deg);
+	        }
+	        #meringue path:nth-of-type(5) {
+	            transform: rotate(240deg);
+	        }
+	        #meringue path:nth-of-type(6) {
+	            transform: rotate(300deg);
+	        }
+	    </style>
+
         <rect x="0" y="0" width="400" height="400" fill="transparent" stroke="black"/>
         <circle id="crust-outer" cx="200" cy="200" r="150"
             fill="transparent"/>
@@ -58,7 +87,16 @@
         <circle id="filling" cx="200" cy="200" r="140"
             fill="transparent"/>
 
-        <circle id="topping" cx="200" cy="200" r="130" fill="transparent" />
+		<g id="meringue" style="display: none;">
+            <circle cx="200" cy="200" r="130"
+                fill="white" stroke="#b3702d"/>
+            <path d="M 200, 200 q 65,-65 0,-130" stroke="#b3702d" fill="transparent" />
+            <path d="M 200, 200 q 65,-65 0,-130" stroke="#b3702d" fill="transparent" />
+            <path d="M 200, 200 q 65,-65 0,-130" stroke="#b3702d" fill="transparent" />
+            <path d="M 200, 200 q 65,-65 0,-130" stroke="#b3702d" fill="transparent" />
+            <path d="M 200, 200 q 65,-65 0,-130" stroke="#b3702d" fill="transparent" />
+            <path d="M 200, 200 q 65,-65 0,-130" stroke="#b3702d" fill="transparent" />
+        </g>
 
     </svg>
     <div id="options">
@@ -88,7 +126,7 @@
         const outerCrust = document.getElementById('crust-outer');
         const innerCrust = document.getElementById('crust-inner');
         const filling = document.getElementById('filling');
-		const topping = document.getElementById('topping');
+		const meringue = document.getElementById('meringue');
 
         document.getElementById('options').addEventListener('change', (e) => {
             switch (e.target.name) {
@@ -132,10 +170,10 @@
             case 'topping':
                 switch (e.target.value) {
 	                case 'none':
-	                    topping.setAttribute('fill', 'transparent');
+	                    meringue.style.display = 'none';
 	                    break;
 	                case 'meringue':
-						topping.setAttribute('fill', 'white');
+						meringue.style.display = '';
 	                    break;
                 }                
             }
