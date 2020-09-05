@@ -76,7 +76,11 @@
 	        }
 	        #meringue path:nth-of-type(6) {
 	            transform: rotate(300deg);
-	        }
+            }
+            
+            .animated {
+                transition: all 1s;
+            }
 	    </style>
 
         <rect x="0" y="0" width="400" height="400" fill="transparent" stroke="black"/>
@@ -88,14 +92,14 @@
             custom pie maker
         </text>
         <image x="320" y="320" width="50" height="50" xlink:href="https://pieshop.netlify.com/images/bethanylogo.png"/>
-        <circle id="crust-outer" cx="200" cy="200" r="150"
+        <circle class="animated" id="crust-outer" cx="200" cy="200" r="150"
             fill="transparent"/>
-        <circle id="crust-inner" cx="200" cy="200" r="110"
+        <circle class="animated" id="crust-inner" cx="200" cy="200" r="110"
             fill="transparent"/>
-        <circle id="filling" cx="200" cy="200" r="140"
+        <circle class="animated" id="filling" cx="200" cy="200" r="140"
             fill="transparent"/>
 
-		<g id="meringue" style="display: none;">
+		<g class="animated" id="meringue" style="display: none;">
             <circle cx="200" cy="200" r="130"
                 fill="white" stroke="#b3702d"/>
             <path d="M 200, 200 q 65,-65 0,-130" stroke="#b3702d" fill="transparent" />
@@ -127,6 +131,7 @@
             <input type="radio" name="topping" value="none" checked/>None<br>
             <input type="radio" name="topping" value="meringue"/>Meringue<br>
         </fieldset>
+        <button id="animate">Explode!</button>
     </div>
 
     <script>
@@ -186,6 +191,25 @@
                 }                
             }
 
+        });
+    
+        const animateButton = document.getElementById('animate')
+        let isExploded = false;
+        animateButton.addEventListener('click', () => {
+            if (isExploded) {
+                animateButton.innerHTML = 'Explode!';
+                outerCrust.style.transform = 'translate(0, 0) scale(1)';
+                innerCrust.style.transform = 'translate(0, 0) scale(1)';
+                filling.style.transform = 'translate(0, 0) scale(1)';
+                meringue.style.transform = 'translate(0, 0) scale(1)';
+            } else {
+                animateButton.innerHTML = 'Reassemble';
+                outerCrust.style.transform = 'translate(-20px, 20px) scale(0.6)';
+                innerCrust.style.transform = 'translate(-20px, 20px) scale(0.6)';
+                filling.style.transform = 'translate(180px, 20px) scale(0.6)';
+                meringue.style.transform = 'translate(80px, 180px) scale(0.6)';
+            }
+            isExploded = !isExploded;
         });
     </script>
 </body>
